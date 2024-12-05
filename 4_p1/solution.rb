@@ -16,14 +16,11 @@ pp File.open("input.txt")
       [
         m,
         m.transpose,
-        m.map(&:reverse),
-        m.transpose.map(&:reverse),
         rot45.call(m),
-        rot45.call(m).map(&:reverse),
         rot45.call(m.map(&:reverse)),
-        rot45.call(m.map(&:reverse)).map(&:reverse),
       ]
     }
+    .flat_map { |e| [e,e.map(&:reverse)] }
     .flatten(1)
     .flat_map { |r| r.each_cons(4).to_a }
     .map(&:join)
